@@ -24,7 +24,7 @@ positional arguments:
 options:
   -h, --help  show this help message and exit
 ```
-## `sql_quer.py`
+## `sql_query.py`
 This was creates as a helper to execute the following SQL command on a local sqlite3 database. 
 
 The path varaible can be edited to look at a different local sqlite3 database. If the database is postgreSQL, the following SQL command can be used to find the answer. 
