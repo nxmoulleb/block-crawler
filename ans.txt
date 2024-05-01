@@ -1,0 +1,3 @@
+The max etherium transfered in 1 block between the allotted time is 1309.038641963251 in the block 18908968.
+
+SELECT max(value), block_number FROM transactions WHERE timestamp BETWEEN (1704067200) AND (1704069000);
