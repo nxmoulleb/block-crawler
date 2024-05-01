@@ -1,7 +1,7 @@
 Relayer Technical 
 ===============================
 ## Overview
-The python file `block_crawler.py` contains the code to create a table, populate it with data about etherium transactions, and prints the resulting table. 
+The python file `block_crawler.py` contains the code to create a table, populate it with data about etherium transactions, and prints the resulting table. The program was tested with a local SQLite3 database but supports postgreSQL URI.
 
 `sql_query.py` finds the block with the maximum amount of etherium traded from the time 2024-01-01 00:00:00 to 2024-01-01 00:30:00 (1704067200 to 1704069000 in epoch unix form).
 

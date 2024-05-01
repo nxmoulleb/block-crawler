@@ -2,7 +2,7 @@ import sqlite3
 
 if __name__ == "__main__":
 
-    path = 'local.sqlite3'
+    path = 'test.sqlite3'
 
     # connect to the locally populated database
     connection = sqlite3.connect(path)
