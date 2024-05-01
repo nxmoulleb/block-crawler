@@ -4,7 +4,6 @@ import json
 import sqlite3
 from urllib.parse import urlparse
 import psycopg2
-import web3
 
 def get_connection_from_path(path):
     """
@@ -139,8 +138,9 @@ def get_eth_block(endpoint, path, start, end):
         start (int): The starting block we are getting.
         end (end): The last etherium block that we are getting.
     """
-    
+
     connection = get_connection_from_path(path)
+    # Loop through all the blocks from start to end 
     for id in range(start, end):
         try:
             # Request the endpoint by block number. Uses the requests library to format the request. Uses id to keep track of which block is which.
@@ -149,12 +149,15 @@ def get_eth_block(endpoint, path, start, end):
             r = requests.post(endpoint, data=json.dumps(payload), headers=headers)
             resultsJson = r.json()
             
+            # There is a possibility of a null result, which we will disregard.
             if(resultsJson['result']):
                 transactions = resultsJson['result']['transactions']
                  
-                 # Get the total value of all transactions in the block and convert it from WEI to ETH
                 total_value = 0
+
+                # Get the total value of all transactions in the block and convert it from WEI to ETH
                 for transaction in transactions:
+
                     value_in_wei = int(transaction['value'], 0)
                     # convert the value from WEI to ETH so it fits in the SQL table
                     value_in_ether = value_in_wei/1000000000000000000
@@ -172,9 +175,9 @@ def get_eth_block(endpoint, path, start, end):
 
 if __name__ == "__main__":
     # Add arguments to the program using argparse
-    parser = argparse.ArgumentParser(description="A block crawler")
+    parser = argparse.ArgumentParser(description="Populates a database with data about etherium transactions between block number {start} and {end}")
     parser.add_argument('endpoint', help="A JSON-RPC endpoint to call an Ethereum client")
-    parser.add_argument('path', help="The path of the SQLite file to write to or a connection URI")
+    parser.add_argument('path', help="The path to the database. Can be a local SQLite3 file or or a postgreSQL connection URI")
     parser.add_argument('startEnd', help="A block range, formatted as \"{start}-{end}\"")
 
     args = parser.parse_args()
